@@ -15,7 +15,7 @@ const bodyFont = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Forum Hub - Dicoding Forum App",
+  title: "Difohub - Dicoding Forum Hub",
   description: "Discussion forum application powered by Dicoding Forum API",
 };
 

@@ -14,11 +14,14 @@ import type { DetailThread } from "@/src/types/forum";
 
 export default function ThreadDetailPage({
   initialDetail,
+  errorMessage,
 }: {
   initialDetail: DetailThread | null;
+  errorMessage?: string;
 }) {
   const dispatch = useAppDispatch();
-  const detail = useAppSelector((state) => state.threadDetail.item);
+  const detailFromStore = useAppSelector((state) => state.threadDetail.item);
+  const detail = detailFromStore ?? initialDetail;
   const user = useAppSelector((state) => state.auth.user);
   const [comment, setComment] = useState("");
   const [error, setError] = useState("");
@@ -51,7 +54,11 @@ export default function ThreadDetailPage({
       <DataHydrator detailThread={initialDetail} />
       {!detail ? (
         <section className="panel">
-          <p>Thread not found.</p>
+          {errorMessage && !/not found/i.test(errorMessage) ? (
+            <p>Failed to load thread: {errorMessage}</p>
+          ) : (
+            <p>Thread not found.</p>
+          )}
         </section>
       ) : (
         <section className="panel thread-detail">

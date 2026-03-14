@@ -18,10 +18,19 @@ async function request<T>(
   path: string,
   options: RequestInit = {},
 ): Promise<ApiEnvelope<T>> {
+  const isServer = typeof window === "undefined";
+
   const response = await fetch(`${BASE_URL}${path}`, {
     ...options,
     headers: {
       "Content-Type": "application/json",
+      Accept: "application/json",
+      ...(isServer
+        ? {
+            "User-Agent":
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+          }
+        : {}),
       ...(options.headers ?? {}),
     },
     cache: "no-store",

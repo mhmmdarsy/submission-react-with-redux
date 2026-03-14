@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useMemo, useState, useSyncExternalStore } from "react";
 import DataHydrator from "@/src/components/providers/DataHydrator";
 import {
   Select,
@@ -26,6 +26,12 @@ export default function ThreadListPage({
 }: {
   initialThreads: ThreadWithOwner[];
 }) {
+  const isClient = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
+
   const dispatch = useAppDispatch();
   const { items, activeCategory } = useAppSelector((state) => state.threads);
   const user = useAppSelector((state) => state.auth.user);
@@ -77,9 +83,9 @@ export default function ThreadListPage({
     <>
       <DataHydrator threads={initialThreads} />
 
-      {user ? (
+      {isClient && user ? (
         <section className="panel">
-          <h2>Create New Thread</h2>
+          <h2>Create Your Own Thread</h2>
           <form className="stack-form" onSubmit={onCreateThread}>
             <label htmlFor="thread-title">Title</label>
             <input

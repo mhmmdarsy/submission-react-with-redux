@@ -51,7 +51,13 @@ const threadsSlice = createSlice({
   initialState,
   reducers: {
     setThreads(state, action: PayloadAction<ThreadWithOwner[]>) {
-      state.items = action.payload;
+      const incoming = action.payload;
+      const incomingIds = new Set(incoming.map((thread) => thread.id));
+      const localOnly = state.items.filter(
+        (thread) => !incomingIds.has(thread.id),
+      );
+
+      state.items = [...localOnly, ...incoming];
     },
     addThread(state, action: PayloadAction<ThreadWithOwner>) {
       state.items.unshift(action.payload);

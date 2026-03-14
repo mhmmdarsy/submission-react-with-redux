@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import LoadingIndicator from "@/src/components/common/LoadingIndicator";
 import { useAppDispatch, useAppSelector } from "@/src/states/hooks";
 import { logoutThunk } from "@/src/states/thunks/authThunks";
@@ -11,10 +11,14 @@ export default function Navbar() {
   const user = useAppSelector((state) => state.auth.user);
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const pathname = usePathname();
 
   const onLogout = async () => {
     await dispatch(logoutThunk());
-    router.push("/");
+
+    if (pathname !== "/") {
+      router.push("/");
+    }
   };
 
   return (

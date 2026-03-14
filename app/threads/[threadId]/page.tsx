@@ -10,12 +10,16 @@ export default async function ThreadDetailRoute({
   const { threadId } = await params;
 
   let detail: DetailThread | null = null;
+  let errorMessage = "";
 
   try {
     detail = await getThreadDetail(threadId);
-  } catch {
+  } catch (error) {
     detail = null;
+    errorMessage = (error as Error).message;
   }
 
-  return <ThreadDetailPage initialDetail={detail} />;
+  return (
+    <ThreadDetailPage initialDetail={detail} errorMessage={errorMessage} />
+  );
 }
