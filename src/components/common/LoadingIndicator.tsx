@@ -10,9 +10,13 @@ export default function LoadingIndicator() {
   }
 
   return (
-    <div className="loading-wrap" role="status" aria-live="polite">
-      <div className="loading-dot" />
-      <span>Loading...</span>
+    <div
+      className="navbar-loading"
+      role="status"
+      aria-live="polite"
+      aria-label="Loading"
+    >
+      <div className="navbar-loading-bar" />
     </div>
   );
 }

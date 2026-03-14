@@ -1,8 +1,12 @@
 export default function Loading() {
   return (
-    <main className="center-loading">
-      <div className="loading-dot" />
-      <p>Loading page...</p>
-    </main>
+    <>
+      <div className="navbar-loading" aria-hidden="true">
+        <div className="navbar-loading-bar" />
+      </div>
+      <main className="center-loading">
+        <p>Loading page...</p>
+      </main>
+    </>
   );
 }

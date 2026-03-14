@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Fraunces, Space_Grotesk } from "next/font/google";
-import LoadingIndicator from "@/src/components/common/LoadingIndicator";
 import Navbar from "@/src/components/common/Navbar";
 import StoreProvider from "@/src/components/providers/StoreProvider";
 import "./globals.css";
@@ -30,7 +29,6 @@ export default function RootLayout({
       <body className={`${headingFont.variable} ${bodyFont.variable} app-body`}>
         <StoreProvider>
           <Navbar />
-          <LoadingIndicator />
           <main className="container-main">{children}</main>
         </StoreProvider>
       </body>
