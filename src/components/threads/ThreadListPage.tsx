@@ -4,6 +4,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { FormEvent, useMemo, useState } from "react";
 import DataHydrator from "@/src/components/providers/DataHydrator";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/src/components/ui/select";
 import { formatDate } from "@/src/lib/date";
 import { stripHtml, truncateText } from "@/src/lib/text";
 import { useAppDispatch, useAppSelector } from "@/src/states/hooks";
@@ -115,20 +122,21 @@ export default function ThreadListPage({
       <section className="panel">
         <div className="list-head">
           <h2>Thread List</h2>
-          <select
-            className="category-select"
-            title="category"
+          <Select
             value={activeCategory}
-            onChange={(event) =>
-              dispatch(setActiveCategory(event.target.value))
-            }
+            onValueChange={(value) => dispatch(setActiveCategory(value))}
           >
-            {categories.map((item) => (
-              <option key={item} value={item}>
-                {item === "all" ? "All categories" : item}
-              </option>
-            ))}
-          </select>
+            <SelectTrigger aria-label="Category" className="category-trigger">
+              <SelectValue placeholder="All categories" />
+            </SelectTrigger>
+            <SelectContent>
+              {categories.map((item) => (
+                <SelectItem key={item} value={item}>
+                  {item === "all" ? "All categories" : item}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
 
         <div className="thread-list">
