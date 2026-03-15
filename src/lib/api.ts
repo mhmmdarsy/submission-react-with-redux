@@ -23,14 +23,16 @@ async function request<T>(
 
   if (isServer) {
     serverHeaders["User-Agent"] =
-      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36";
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) " +
+      "AppleWebKit/537.36 (KHTML, like Gecko) " +
+      "Chrome/122.0.0.0 Safari/537.36";
   }
 
   const response = await fetch(`${BASE_URL}${path}`, {
     ...options,
     headers: {
       "Content-Type": "application/json",
-      Accept: "application/json",
+      "Accept": "application/json",
       ...serverHeaders,
       ...(options.headers ?? {}),
     },
@@ -129,8 +131,8 @@ export async function createComment(
 
 async function voteThread(token: string, threadId: string, type: 1 | 0 | -1) {
   const pathByType: Record<1 | 0 | -1, string> = {
-    1: "up-vote",
-    0: "neutral-vote",
+    "1": "up-vote",
+    "0": "neutral-vote",
     "-1": "down-vote",
   };
 
@@ -149,8 +151,8 @@ async function voteComment(
   type: 1 | 0 | -1,
 ) {
   const pathByType: Record<1 | 0 | -1, string> = {
-    1: "up-vote",
-    0: "neutral-vote",
+    "1": "up-vote",
+    "0": "neutral-vote",
     "-1": "down-vote",
   };
 
@@ -176,3 +178,4 @@ export async function getLeaderboards() {
   );
   return result.data.leaderboards;
 }
+

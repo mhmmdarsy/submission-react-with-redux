@@ -1,15 +1,18 @@
 import type { Metadata } from "next";
-import { Fraunces, Space_Grotesk } from "next/font/google";
+import {
+  Fraunces as fraunces,
+  Space_Grotesk as spaceGrotesk,
+} from "next/font/google";
 import Navbar from "@/src/components/common/Navbar";
 import StoreProvider from "@/src/components/providers/StoreProvider";
 import "./globals.css";
 
-const headingFont = Fraunces({
+const headingFont = fraunces({
   variable: "--font-heading",
   subsets: ["latin"],
 });
 
-const bodyFont = Space_Grotesk({
+const bodyFont = spaceGrotesk({
   variable: "--font-body",
   subsets: ["latin"],
 });

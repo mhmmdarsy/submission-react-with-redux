@@ -99,12 +99,12 @@ export default function ThreadListPage({
             const upCount = thread.upVotesBy.length;
             const downCount = thread.downVotesBy.length;
             const userId = user?.id || "";
-            const isUpVoted = userId
-              ? thread.upVotesBy.includes(userId)
-              : false;
-            const isDownVoted = userId
-              ? thread.downVotesBy.includes(userId)
-              : false;
+            const isUpVoted = userId ?
+              thread.upVotesBy.includes(userId) :
+              false;
+            const isDownVoted = userId ?
+              thread.downVotesBy.includes(userId) :
+              false;
 
             return (
               <article key={thread.id} className="thread-card">

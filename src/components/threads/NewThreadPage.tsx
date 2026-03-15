@@ -34,9 +34,9 @@ export default function NewThreadPage() {
       router.push(`/threads/${createdThread.id}`);
     } catch (submitError) {
       setError(
-        typeof submitError === "string"
-          ? submitError
-          : "Failed to create thread",
+        typeof submitError === "string" ?
+          submitError :
+          "Failed to create thread",
       );
     } finally {
       setIsSubmitting(false);

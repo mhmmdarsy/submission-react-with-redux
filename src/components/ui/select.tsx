@@ -31,13 +31,19 @@ function SelectTrigger({
   children,
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Trigger>) {
+  const triggerClassName = cx(
+    "flex h-9 min-w-[150px] max-w-[220px] items-center justify-between",
+    "gap-2 rounded-xl border border-[#d8cab8] bg-[#fffcf7] px-3 py-2",
+    "text-sm text-[#1f1a18] shadow-sm outline-none transition",
+    "focus-visible:ring-2 focus-visible:ring-[#ba4b2f]/30",
+    "disabled:cursor-not-allowed disabled:opacity-50",
+    className,
+  );
+
   return (
     <SelectPrimitive.Trigger
       data-slot="select-trigger"
-      className={cx(
-        "flex h-9 min-w-[150px] max-w-[220px] items-center justify-between gap-2 rounded-xl border border-[#d8cab8] bg-[#fffcf7] px-3 py-2 text-sm text-[#1f1a18] shadow-sm outline-none transition focus-visible:ring-2 focus-visible:ring-[#ba4b2f]/30 disabled:cursor-not-allowed disabled:opacity-50",
-        className,
-      )}
+      className={triggerClassName}
       {...props}
     >
       {children}
@@ -54,32 +60,43 @@ function SelectContent({
   position = "popper",
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Content>) {
+  const scrollButtonClassName =
+    "flex cursor-default items-center justify-center py-1";
+
+  const contentClassName = cx(
+    "relative z-50 max-h-80 min-w-[8rem] overflow-x-hidden overflow-y-auto",
+    "rounded-xl border border-[#d8cab8] bg-[#fffdfa] text-[#1f1a18]",
+    "shadow-md",
+    position === "popper" &&
+      "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1",
+    position === "popper" &&
+      "data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
+    className,
+  );
+
   return (
     <SelectPrimitive.Portal>
       <SelectPrimitive.Content
         data-slot="select-content"
-        className={cx(
-          "relative z-50 max-h-80 min-w-[8rem] overflow-x-hidden overflow-y-auto rounded-xl border border-[#d8cab8] bg-[#fffdfa] text-[#1f1a18] shadow-md",
-          position === "popper" &&
-            "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
-          className,
-        )}
+        className={contentClassName}
         position={position}
         {...props}
       >
-        <SelectPrimitive.ScrollUpButton className="flex cursor-default items-center justify-center py-1">
+        <SelectPrimitive.ScrollUpButton className={scrollButtonClassName}>
           <ChevronUp className="h-4 w-4" />
         </SelectPrimitive.ScrollUpButton>
         <SelectPrimitive.Viewport
           className={cx(
             "p-1",
             position === "popper" &&
-              "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]",
+              "h-[var(--radix-select-trigger-height)] w-full",
+            position === "popper" &&
+              "min-w-[var(--radix-select-trigger-width)]",
           )}
         >
           {children}
         </SelectPrimitive.Viewport>
-        <SelectPrimitive.ScrollDownButton className="flex cursor-default items-center justify-center py-1">
+        <SelectPrimitive.ScrollDownButton className={scrollButtonClassName}>
           <ChevronDown className="h-4 w-4" />
         </SelectPrimitive.ScrollDownButton>
       </SelectPrimitive.Content>
@@ -108,16 +125,24 @@ function SelectItem({
   children,
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Item>) {
+  const itemIndicatorClassName =
+    "absolute right-2 flex h-3.5 w-3.5 items-center justify-center";
+
+  const itemClassName = cx(
+    "relative flex w-full cursor-default items-center rounded-md",
+    "py-1.5 pr-8 pl-2 text-sm outline-none select-none",
+    "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+    "data-[highlighted]:bg-[#f5e5d0]",
+    className,
+  );
+
   return (
     <SelectPrimitive.Item
       data-slot="select-item"
-      className={cx(
-        "relative flex w-full cursor-default items-center rounded-md py-1.5 pr-8 pl-2 text-sm outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[highlighted]:bg-[#f5e5d0]",
-        className,
-      )}
+      className={itemClassName}
       {...props}
     >
-      <span className="absolute right-2 flex h-3.5 w-3.5 items-center justify-center">
+      <span className={itemIndicatorClassName}>
         <SelectPrimitive.ItemIndicator>
           <Check className="h-4 w-4" />
         </SelectPrimitive.ItemIndicator>

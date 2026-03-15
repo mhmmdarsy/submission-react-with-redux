@@ -97,9 +97,9 @@ export default function ThreadDetailPage({
                   )
                 }
                 className={
-                  user && detail.upVotesBy.includes(user.id)
-                    ? "vote-btn active-up"
-                    : "vote-btn"
+                  user && detail.upVotesBy.includes(user.id) ?
+                    "vote-btn active-up" :
+                    "vote-btn"
                 }
               >
                 Up {detail.upVotesBy.length}
@@ -112,9 +112,9 @@ export default function ThreadDetailPage({
                   )
                 }
                 className={
-                  user && detail.downVotesBy.includes(user.id)
-                    ? "vote-btn active-down"
-                    : "vote-btn"
+                  user && detail.downVotesBy.includes(user.id) ?
+                    "vote-btn active-down" :
+                    "vote-btn"
                 }
               >
                 Down {detail.downVotesBy.length}
@@ -186,9 +186,9 @@ export default function ThreadDetailPage({
                         )
                       }
                       className={
-                        user && item.upVotesBy.includes(user.id)
-                          ? "vote-btn active-up"
-                          : "vote-btn"
+                        user && item.upVotesBy.includes(user.id) ?
+                          "vote-btn active-up" :
+                          "vote-btn"
                       }
                     >
                       Up {item.upVotesBy.length}
@@ -205,9 +205,9 @@ export default function ThreadDetailPage({
                         )
                       }
                       className={
-                        user && item.downVotesBy.includes(user.id)
-                          ? "vote-btn active-down"
-                          : "vote-btn"
+                        user && item.downVotesBy.includes(user.id) ?
+                          "vote-btn active-down" :
+                          "vote-btn"
                       }
                     >
                       Down {item.downVotesBy.length}
