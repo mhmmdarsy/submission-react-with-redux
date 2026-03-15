@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { FormEvent, useMemo, useState, useSyncExternalStore } from "react";
+import { useMemo, useSyncExternalStore } from "react";
 import DataHydrator from "@/src/components/providers/DataHydrator";
 import {
   Select,
@@ -15,10 +15,7 @@ import { formatDate } from "@/src/lib/date";
 import { stripHtml, truncateText } from "@/src/lib/text";
 import { useAppDispatch, useAppSelector } from "@/src/states/hooks";
 import { setActiveCategory } from "@/src/states/slices/threadsSlice";
-import {
-  createThreadThunk,
-  voteThreadThunk,
-} from "@/src/states/thunks/threadThunks";
+import { voteThreadThunk } from "@/src/states/thunks/threadThunks";
 import type { ThreadWithOwner } from "@/src/types/forum";
 
 export default function ThreadListPage({
@@ -36,11 +33,6 @@ export default function ThreadListPage({
   const { items, activeCategory } = useAppSelector((state) => state.threads);
   const user = useAppSelector((state) => state.auth.user);
 
-  const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
-  const [category, setCategory] = useState("");
-  const [error, setError] = useState("");
-
   const categories = useMemo(() => {
     const mapped = items
       .map((thread) => thread.category)
@@ -57,71 +49,28 @@ export default function ThreadListPage({
     return items.filter((thread) => thread.category === activeCategory);
   }, [activeCategory, items]);
 
-  const onCreateThread = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setError("");
-
-    const result = await dispatch(
-      createThreadThunk({
-        title,
-        body,
-        category: category || undefined,
-      }),
-    );
-
-    if (createThreadThunk.rejected.match(result)) {
-      setError((result.payload as string) || "Failed to create thread");
-      return;
-    }
-
-    setTitle("");
-    setBody("");
-    setCategory("");
-  };
-
   return (
     <>
       <DataHydrator threads={initialThreads} />
 
       {isClient && user ? (
         <section className="panel">
-          <h2>Create Your Own Thread</h2>
-          <form className="stack-form" onSubmit={onCreateThread}>
-            <label htmlFor="thread-title">Title</label>
-            <input
-              id="thread-title"
-              value={title}
-              onChange={(event) => setTitle(event.target.value)}
-              required
-            />
-
-            <label htmlFor="thread-category">Category</label>
-            <input
-              id="thread-category"
-              value={category}
-              onChange={(event) => setCategory(event.target.value)}
-              placeholder="General"
-            />
-
-            <label htmlFor="thread-body">Body</label>
-            <textarea
-              id="thread-body"
-              value={body}
-              onChange={(event) => setBody(event.target.value)}
-              rows={4}
-              required
-            />
-
-            {error && <p className="error-text">{error}</p>}
-
-            <button type="submit" className="solid-btn wide-btn">
-              Publish Thread
-            </button>
-          </form>
+          <h2>Ready to Share Something?</h2>
+          <p className="muted">
+            Create a new discussion on the dedicated page.
+          </p>
+          <div style={{ marginTop: "0.75rem" }}>
+            <Link href="/new" className="solid-btn">
+              Create New Thread
+            </Link>
+          </div>
         </section>
       ) : (
         <section className="panel">
-          <p>Log in to create threads, post comments, and vote.</p>
+          <p>
+            Log in to create threads, post comments, and vote. You can create a
+            thread from the <Link href="/new">new thread page</Link>.
+          </p>
         </section>
       )}
 

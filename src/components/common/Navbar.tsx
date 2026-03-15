@@ -30,6 +30,8 @@ export default function Navbar() {
         <nav className="nav-links">
           <Link href="/">Threads</Link>
           <p>|</p>
+          <Link href="/new">New Thread</Link>
+          <p>|</p>
           <Link href="/leaderboards">Leaderboards</Link>
           <p>|</p>
           {user ? (
