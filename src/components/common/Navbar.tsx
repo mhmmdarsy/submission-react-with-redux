@@ -28,9 +28,9 @@ export default function Navbar() {
           Dicoding Forum Hub
         </Link>
         <nav className="nav-links">
-          <Link href="/">Threads</Link>
+          <Link href="/">Home</Link>
           <p>|</p>
-          <Link href="/new">New Thread</Link>
+          <Link href="/new">Add Thread</Link>
           <p>|</p>
           <Link href="/leaderboards">Leaderboards</Link>
           <p>|</p>
