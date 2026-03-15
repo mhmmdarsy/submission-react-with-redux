@@ -1,8 +1,32 @@
 import { defineConfig, globalIgnores } from "eslint/config";
+import { FlatCompat } from "@eslint/eslintrc";
+import { dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const compat = new FlatCompat({
+  baseDirectory: __dirname,
+});
+
+const googleConfig = compat.extends("google").map((config) => {
+  const rules = { ...config.rules };
+
+  // Removed from ESLint v9; keep Google config while dropping deprecated rules.
+  delete rules["valid-jsdoc"];
+  delete rules["require-jsdoc"];
+
+  return {
+    ...config,
+    rules,
+  };
+});
+
 const eslintConfig = defineConfig([
+  ...googleConfig,
   ...nextVitals,
   ...nextTs,
   {
