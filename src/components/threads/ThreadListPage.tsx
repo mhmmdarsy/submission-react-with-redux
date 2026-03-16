@@ -59,7 +59,7 @@ export default function ThreadListPage({
           <p className="muted">
             Create a new discussion on the dedicated page.
           </p>
-          <div style={{ marginTop: "0.75rem" }}>
+          <div className="new-thread-cta">
             <Link href="/new" className="solid-btn">
               Create New Thread
             </Link>

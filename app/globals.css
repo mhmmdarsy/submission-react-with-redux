@@ -185,6 +185,10 @@ label {
   margin-top: 0.35rem;
 }
 
+.new-thread-cta {
+  margin-top: 0.75rem;
+}
+
 .list-head {
   display: flex;
   align-items: center;
