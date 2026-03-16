@@ -1,36 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Forum Diskusi - Submission React with Redux
 
-## Getting Started
+Aplikasi forum diskusi berbasis Next.js App Router dan Redux Toolkit.
 
-First, run the development server:
+## Menjalankan Aplikasi
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Automation Testing
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Perintah pengujian yang wajib digunakan:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm test
+npm run e2e
+```
 
-## Learn More
+Cakupan test pada proyek ini:
 
-To learn more about Next.js, take a look at the following resources:
+- Unit test reducer (`threadsSlice`)
+- Unit/integration test thunk (`loginThunk`, `voteThreadThunk`)
+- Component test React (`LoginForm`, `Navbar`)
+- End-to-end test alur login (`cypress/e2e/login.cy.ts`)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Setiap berkas pengujian sudah memuat skenario pengujian pada komentar di bagian atas file.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## CI/CD
 
-## Deploy on Vercel
+### Continuous Integration (GitHub Actions)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Workflow CI berada di `.github/workflows/ci.yml` dengan alur berikut:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Install dependencies
+2. Jalankan lint
+3. Jalankan unit dan integration test (`npm test`)
+4. Jalankan E2E test Cypress (`npm run e2e`)
+
+### Continuous Deployment (Vercel)
+
+Deployment dilakukan menggunakan Vercel.
+
+Isi URL deployment setelah deploy:
+
+`Vercel URL: <isi-url-deployment-anda-di-sini>`
+
+## Branch Protection
+
+Konfigurasi branch protection dilakukan pada branch `master` dengan minimal:
+
+- Require status checks to pass before merging
+- Require review sebelum merge
+
+## Bukti Screenshot Submission
+
+Letakkan screenshot bukti pada folder `screenshot/` dengan nama berkas berikut:
+
+- `1_ci_check_error.png`
+- `2_ci_check_pass.png`
+- `3_branch_protection.png`
+
+Struktur folder dalam ZIP submission:
+
+```text
+submission-react-with-redux-part2/
+	screenshot/
+		1_ci_check_error.png
+		2_ci_check_pass.png
+		3_branch_protection.png
+	...
+```
+
+## React Ecosystem yang Digunakan
+
+Proyek memanfaatkan ekosistem React di luar daftar yang dikecualikan, yaitu:
+
+- Next.js App Router
+- Radix UI (`@radix-ui/react-select`)
