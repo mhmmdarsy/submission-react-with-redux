@@ -32,6 +32,7 @@ const eslintConfig = defineConfig([
   {
     rules: {
       "arrow-parens": ["error", "always"],
+      "linebreak-style": "off",
       "curly": ["error", "all"],
       "comma-dangle": ["error", "always-multiline"],
       "eqeqeq": ["error", "always"],
